@@ -39,28 +39,27 @@ namespace TwitchChatBot
 
         //public static AuthenticateStuff()
         //{
-        //    string urlToSend = @"https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=lyf7vi5gq1sh3g1j4oovlm4jfe77sx&redirect_uri=http://localhost/TestingThis&scope=channel_editor&state=w51d28xtnez1ydui9sa6fv2jot4sq2";
+        //    string urlToSend = @"https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=lyf7vi5gq1sh3g1j4oovlm4jfe77sx&redirect_uri=http://localhost/TestingThis&scope=channel_editor&state=ehus0w9shj5g0aw6aeblgem8lp2yz1";
         //}
 
         public static void UpdatePersonalTwitchChannelInfo(string game, string status, string delay)
         {
-            string urlToRequest = "https://api.twitch.tv/kraken/channels" + "/" + $"25666162";
+            string urlToRequest = "https://api.twitch.tv/kraken/channels" + "/" + $"shadowethereal";
 
             var request = (HttpWebRequest)WebRequest.Create(urlToRequest);
             
             request.Headers.Add("Client-ID: lyf7vi5gq1sh3g1j4oovlm4jfe77sx");
             request.Accept = "application/vnd.twitchtv.v3+json";
-            request.Headers.Add("Authorization: OAuth pbiv3impos6muep48om5apt079k6it");
-            //request.ContentType = "application/json";
+            request.Headers.Add("Authorization: OAuth bxo8ywavguuerer9egt12qnrgfj7id");
+            request.ContentType = "application/json";
             request.Method = "PUT";
-            var channelSettings = new ChannelSettings("Updating channel through code", "Visual Studio 2017", "", true);
+            var channelSettings = new ChannelSettings() { channel = new Channel() { status = "Updating channel through code 2", game = "Visual Studio 2017"} };
 
             var jsonData = JsonConvert.SerializeObject(channelSettings);
 
             using (var writer = new StreamWriter(request.GetRequestStream()))
             {
-                //writer.Write("{channel: {status: The Finalest of Fantasies, game: Final Fantasy XV, channel_feed_enabled: true}}");
-                writer.Write("channel[status] = The + Finalest + of + Fantasies & channel[game] = Final + Fantasy + XV");
+                writer.Write(jsonData);
             }
 
             
